@@ -42,7 +42,7 @@ List.prototype.serialize = function() {
 
 List.prototype.setName = function(name) {
   this.name_ = name;
-  this.nameEl_.innerHTML = name === '' ? '(Untitled)' : name;
+  this.nameEl_.innerHTML = name === '' ? '(Untitled list)' : name;
 };
 
 List.prototype.getName = function() {

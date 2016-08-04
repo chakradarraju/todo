@@ -2,4 +2,4 @@
 
 Simple web page that stores your lists in browser storage.
 
-[Demo][https://chakradarraju.github.io/todo/]
+[Demo](https://chakradarraju.github.io/todo/)

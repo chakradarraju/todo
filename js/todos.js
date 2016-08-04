@@ -23,6 +23,10 @@ ToDos.prototype.getRenameFn_ = function(el) {
   return function() {
     var newName = prompt('New name:');
     if (newName) {
+      if (/[;!]/.test(newName)) {
+        alert('Name cannot contain ; or !');
+        return;
+      }
       if (newName in this.lists_) {
         alert('Name already in use');
         return;

@@ -1,0 +1,23 @@
+.newlistbtn {
+  width: 50px;
+  height: 50px;
+  background-color: green;
+  border-radius: 100%;
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  color: white;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 50px;
+  font-weight: bold;
+}
+.list {
+  display: inline-block;
+  vertical-align: top;
+}
+.addbtn {
+  text-align: center;
+  background-color: green;
+  color: white;
+}

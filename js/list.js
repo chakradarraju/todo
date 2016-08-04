@@ -9,9 +9,18 @@ function List() {
 List.prototype.add = function() {
   var item = new Item();
   this.items_.push(item);
-  this.itemsEl_.appendChild(item.getEl());
-  item.listenChange(this.changeCallback_);
+  this.setupItem_(item);
   return item;
+};
+
+List.prototype.remove = function(item) {
+  var index = this.items_.findIndex(function(elem) {
+    return elem === item;
+  });
+  if (index !== -1) {
+    this.itemsEl_.removeChild(item.getEl());
+    this.items_.splice(index, 1);
+  }
 };
 
 List.prototype.loadFrom = function(serialized) {
@@ -64,4 +73,17 @@ List.prototype.init_ = function(el) {
   this.addBtn_.onclick = function() {
     this.add();
   }.bind(this);
+};
+
+List.prototype.setupItem_ = function(item) {
+  this.itemsEl_.appendChild(item.getEl());
+  item.listenChange(this.changeCallback_);
+  var remove = document.createElement('a');
+  remove.innerHTML = 'x';
+  remove.href = '#';
+  remove.onclick = function() {
+    this.remove(item);
+    this.changeCallback_();
+  }.bind(this);
+  item.getEl().appendChild(remove);
 };

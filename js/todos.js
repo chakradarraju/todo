@@ -62,10 +62,10 @@ ToDos.prototype.setupList_ = function(list, name, data) {
 };
 
 ToDos.prototype.triggerSaveLater_ = function() {
-  console.log('triggering save');
+  document.title = 'ToDo *';
   if (this.saveTimeout_) clearTimeout(this.saveTimeout_);
   this.saveTimeout_ = setTimeout(function() {
-    console.log('saved');
+    document.title = 'ToDo';
     this.save();
   }.bind(this), 5000);
 };

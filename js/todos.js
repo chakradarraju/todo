@@ -19,6 +19,12 @@ ToDos.prototype.save = function() {
   this.saveToStorage_();
 };
 
+ToDos.prototype.deleteList = function(name) {
+  this.listsContainer_.removeChild(this.lists_[name].getEl());
+  delete this.lists_[name];
+  this.removeListFromStorage_(name);
+};
+
 ToDos.prototype.getRenameFn_ = function(el) {
   return function() {
     var newName = prompt('New name:');
@@ -34,8 +40,8 @@ ToDos.prototype.getRenameFn_ = function(el) {
       var oldName = el.getName();
       this.lists_[newName] = this.lists_[oldName];
       this.lists_[newName].setName(newName);
-      delete this.lists_[oldName];
-      this.removeListFromStorage_(oldName);
+      delete this.lists_[name];
+      this.removeListFromStorage_(name);
       this.save();
     }
   }.bind(this);
@@ -61,7 +67,11 @@ ToDos.prototype.setupList_ = function(list, name, data) {
   list.setName(name);
   list.loadFrom(data);
   list.listenNameClick(this.getRenameFn_(list));
-  list.listenChange(this.saveToStorage_.bind(this));
+  list.listenChange(this.save.bind(this));
+  list.getDeleteBtn().onclick = function() {
+    this.deleteList(list.getName());
+    this.save();
+  }.bind(this);
   return list;
 };
 

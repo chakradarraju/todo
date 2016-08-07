@@ -6,8 +6,8 @@ function List() {
   this.changeCallback_ = null;
 }
 
-List.prototype.add = function() {
-  var item = new Item();
+List.prototype.add = function(data) {
+  var item = new Item(data);
   this.items_.push(item);
   this.setupItem_(item);
   return item;
@@ -30,7 +30,7 @@ List.prototype.loadFrom = function(serialized) {
   }
   if (!serialized) return;
   serialized.match(/([^\\\][^&]|\\&)+/g).forEach(function(item) {
-    this.add().loadValue(item)
+    this.add(item);
   }, this);
 };
 

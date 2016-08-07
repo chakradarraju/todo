@@ -64,10 +64,16 @@ List.prototype.getEl = function() {
   return this.el_;
 };
 
+List.prototype.getDeleteBtn = function() {
+  return this.deleteEl_;
+};
+
 List.prototype.init_ = function(el) {
-  el.appendChild(this.nameEl_ = document.createElement('div'));
+  el.appendChild(this.headerEl_ = document.createElement('div'));
   el.appendChild(this.itemsEl_ = document.createElement('div'));
   el.appendChild(this.addBtn_ = document.createElement('div'));
+  this.headerEl_.appendChild(this.nameEl_ = document.createElement('span'));
+  this.headerEl_.appendChild(this.deleteEl_ = this.createDeleteBtn_());
   this.addBtn_.innerHTML = 'Add';
   this.addBtn_.classList.add('addbtn');
   this.addBtn_.onclick = function() {
@@ -75,13 +81,19 @@ List.prototype.init_ = function(el) {
   }.bind(this);
 };
 
+List.prototype.createDeleteBtn_ = function() {
+  var el = document.createElement('a');
+  el.href = '#';
+  el.innerHTML = 'x';
+  el.classList.add('delete');
+  el.classList.add('floatright');
+  return el;
+};
+
 List.prototype.setupItem_ = function(item) {
   this.itemsEl_.appendChild(item.getEl());
   item.listenChange(this.changeCallback_);
-  var remove = document.createElement('a');
-  remove.classList.add('deleteitem');
-  remove.innerHTML = 'x';
-  remove.href = '#';
+  var remove = this.createDeleteBtn_();
   remove.onclick = function() {
     this.remove(item);
     this.changeCallback_();

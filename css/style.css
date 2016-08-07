@@ -35,7 +35,10 @@
   font-family: Courier New;
   cursor: pointer;
 }
-.deleteitem {
+.delete {
   font-family: Arial;
   text-decoration: none;
+}
+.floatright {
+  float: right;
 }

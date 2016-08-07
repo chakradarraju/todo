@@ -68,8 +68,6 @@ Item.prototype.getLabel_ = function(diff) {
   diff /= 1000;
   if (diff < 0) {
     return 'EX';
-  } else if (diff < 60) {
-    return 'SS';
   } else if (diff < 60 * 60) {
     return Math.floor(diff / 60) + 'M';
   } else if (diff < 24 * 60 * 60) {

@@ -79,6 +79,7 @@ List.prototype.setupItem_ = function(item) {
   this.itemsEl_.appendChild(item.getEl());
   item.listenChange(this.changeCallback_);
   var remove = document.createElement('a');
+  remove.classList.add('deleteitem');
   remove.innerHTML = 'x';
   remove.href = '#';
   remove.onclick = function() {

@@ -2,17 +2,23 @@ POW16 = 65536;
 DATELEN = 4;
 
 function Item(data) {
+  function infiniteDeadline() {
+    var d = new Date();
+    d.setYear(d.getFullYear() + 20);
+    return d;
+  }
   this.el_ = document.createElement('div');
   this.save_ = null;
-  this.deadline_ = new Date();
-  this.deadline_.setDate(this.deadline_.getDate() + 1);
+  this.deadline_ = null;
   this.deadlineEl_ = document.createElement('span');
+  this.deadlineEl_.classList.add('deadline');
   this.deadlineEl_.onclick = function() {
     dialog.showTimePicker(function(val) {
       this.setDeadline_(val);
     }.bind(this));
   }.bind(this);
   this.el_.appendChild(this.deadlineEl_);
+  this.setDeadline_(infiniteDeadline());
 
   this.input_ = document.createElement('input');
   this.el_.appendChild(this.input_);

@@ -31,3 +31,11 @@
   margin: -100px 0 0 -150px;
   background: yellow;
 }
+.deadline {
+  font-family: Courier New;
+  cursor: pointer;
+}
+.deleteitem {
+  font-family: Arial;
+  text-decoration: none;
+}

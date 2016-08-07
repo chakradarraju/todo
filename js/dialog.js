@@ -21,14 +21,12 @@ Dialog.prototype.initTimePicker_ = function() {
   this.timePicker_ = document.createElement('div');
   this.timePicker_.style.display = 'none';
   this.el_.appendChild(this.timePicker_);
-  var addBtn = function(label, value) {
+  var addBtn = function(label, fn) {
     var btn = document.createElement('input');
     btn.type = 'button';
     btn.value = label;
     btn.classList.add('deadlinebtn');
-    btn.onclick = function() {
-      this.return_(value);
-    }.bind(this);
+    btn.onclick = fn;
     this.timePicker_.appendChild(btn);
   }.bind(this);
   var tomorrow = function() {
@@ -55,10 +53,16 @@ Dialog.prototype.initTimePicker_ = function() {
     d.setYear(d.getFullYear() + 20);
     return d;
   };
-  addBtn('By tomorrow', tomorrow());
-  addBtn('By weekend', weekend());
-  addBtn('By month end', monthend());
-  addBtn('No deadline', infinite());
+  var ret = function(value) {
+    return function() {
+      this.return_(value);
+    }.bind(this)
+  }.bind(this);
+  addBtn('By tomorrow', ret(tomorrow()));
+  addBtn('By weekend', ret(weekend()));
+  addBtn('By month end', ret(monthend()));
+  addBtn('No deadline', ret(infinite()));
+  addBtn('Close', this.close.bind(this));
 };
 
 Dialog.prototype.return_ = function(value) {

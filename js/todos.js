@@ -61,17 +61,8 @@ ToDos.prototype.setupList_ = function(list, name, data) {
   list.setName(name);
   list.loadFrom(data);
   list.listenNameClick(this.getRenameFn_(list));
-  list.listenChange(this.triggerSaveLater_.bind(this));
+  list.listenChange(this.saveToStorage_.bind(this));
   return list;
-};
-
-ToDos.prototype.triggerSaveLater_ = function() {
-  document.title = '* ToDo';
-  if (this.saveTimeout_) clearTimeout(this.saveTimeout_);
-  this.saveTimeout_ = setTimeout(function() {
-    document.title = 'ToDo';
-    this.save();
-  }.bind(this), 5000);
 };
 
 ToDos.prototype.saveToStorage_ = function() {

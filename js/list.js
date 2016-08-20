@@ -74,6 +74,7 @@ List.prototype.init_ = function(el) {
   el.appendChild(this.addBtn_ = document.createElement('div'));
   this.headerEl_.appendChild(this.nameEl_ = document.createElement('span'));
   this.headerEl_.appendChild(this.deleteEl_ = this.createDeleteBtn_());
+  this.headerEl_.classList.add('header');
   this.addBtn_.innerHTML = 'Add';
   this.addBtn_.classList.add('addbtn');
   this.addBtn_.onclick = function() {

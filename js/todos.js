@@ -7,7 +7,8 @@ function ToDos(el) {
   this.addBtn_.classList.add('newlistbtn');
   this.addBtn_.innerHTML = '+';
   this.addBtn_.onclick = function() {
-    this.lists_[''] = this.setupList_(new List(), '', '');
+    var list = this.lists_[''] = this.setupList_(new List(), '', '');
+    this.getRenameFn_(list)();
   }.bind(this);
   el.appendChild(this.addBtn_);
 
@@ -29,6 +30,7 @@ ToDos.prototype.getRenameFn_ = function(el) {
   return function() {
     var newName = prompt('New name:');
     if (newName) {
+      newName = newName.toLowerCase();
       if (/[;!]/.test(newName)) {
         alert('Name cannot contain ; or !');
         return;

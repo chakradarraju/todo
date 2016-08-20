@@ -6,9 +6,15 @@ function Dialog(el) {
   this.callback_;
 };
 
-Dialog.prototype.showTimePicker = function(callback) {
+Dialog.prototype.show = function() {
   this.el_.style.display = 'block';
   this.timePicker_.style.display = 'block';
+};
+
+Dialog.prototype.showTimePicker = function(left, top, callback) {
+  this.show();
+  this.el_.style.left = left + 'px';
+  this.el_.style.top = top + 'px';
   this.callback_ = callback;
 };
 

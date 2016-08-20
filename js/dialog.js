@@ -35,6 +35,11 @@ Dialog.prototype.initTimePicker_ = function() {
     btn.onclick = fn;
     this.timePicker_.appendChild(btn);
   }.bind(this);
+  var today = function() {
+    var d = new Date();
+    d.setHours(23, 59, 59);
+    return d;
+  };
   var tomorrow = function() {
     var d = new Date();
     d.setHours(20, 0, 0, 0);
@@ -64,6 +69,7 @@ Dialog.prototype.initTimePicker_ = function() {
       this.return_(value);
     }.bind(this)
   }.bind(this);
+  addBtn('By today', ret(today()));
   addBtn('By tomorrow', ret(tomorrow()));
   addBtn('By weekend', ret(weekend()));
   addBtn('By month end', ret(monthend()));

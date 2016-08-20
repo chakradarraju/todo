@@ -8,12 +8,14 @@ function Item(data) {
     return d;
   }
   this.el_ = document.createElement('div');
+  this.el_.classList.add('item');
   this.save_ = null;
   this.deadline_ = null;
   this.deadlineEl_ = document.createElement('span');
   this.deadlineEl_.classList.add('deadline');
   this.deadlineEl_.onclick = function() {
-    dialog.showTimePicker(function(val) {
+    var box = this.deadlineEl_.getBoundingClientRect();
+    dialog.showTimePicker(box.left, box.bottom, function(val) {
       this.setDeadline_(val);
     }.bind(this));
   }.bind(this);
@@ -21,6 +23,7 @@ function Item(data) {
   this.setDeadline_(infiniteDeadline());
 
   this.input_ = document.createElement('input');
+  this.input_.classList.add('input');
   this.el_.appendChild(this.input_);
   if (data) {
     this.loadValue(data);

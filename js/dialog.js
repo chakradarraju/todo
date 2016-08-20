@@ -6,9 +6,15 @@ function Dialog(el) {
   this.callback_;
 };
 
-Dialog.prototype.showTimePicker = function(callback) {
+Dialog.prototype.show = function() {
   this.el_.style.display = 'block';
   this.timePicker_.style.display = 'block';
+};
+
+Dialog.prototype.showTimePicker = function(left, top, callback) {
+  this.show();
+  this.el_.style.left = left + 'px';
+  this.el_.style.top = top + 'px';
   this.callback_ = callback;
 };
 
@@ -29,6 +35,11 @@ Dialog.prototype.initTimePicker_ = function() {
     btn.onclick = fn;
     this.timePicker_.appendChild(btn);
   }.bind(this);
+  var today = function() {
+    var d = new Date();
+    d.setHours(23, 59, 59);
+    return d;
+  };
   var tomorrow = function() {
     var d = new Date();
     d.setHours(20, 0, 0, 0);
@@ -58,6 +69,7 @@ Dialog.prototype.initTimePicker_ = function() {
       this.return_(value);
     }.bind(this)
   }.bind(this);
+  addBtn('By today', ret(today()));
   addBtn('By tomorrow', ret(tomorrow()));
   addBtn('By weekend', ret(weekend()));
   addBtn('By month end', ret(monthend()));

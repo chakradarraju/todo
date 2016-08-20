@@ -15,29 +15,75 @@
 .list {
   display: inline-block;
   vertical-align: top;
+  margin: 5px;
+  padding: 15px;
+  border-radius: 22px;
+  background: lightgreen;
+}
+.item, .header {
+  margin: 5px;
+}
+.item {
+  display: flex;
+}
+.header {
+  width: 200px;
+}
+input {
+  background: transparent;
+  border: none;
+  border-bottom: solid 1px black;
+}
+input:focus {
+  outline: none;
+}
+.input {
+  flex: 1;
+  font-size: 14px;
+}
+input[type=button] {
+  font-size: 14px;
+  width: 100%;
+}
+input[type=button]:hover {
+  background: rgba(255, 255, 255, 0.8);
 }
 .addbtn {
   text-align: center;
   background-color: green;
   color: white;
+  cursor: pointer;
+  border-radius: 12px;
+  padding: 3px;
 }
 #dialog {
+  display: none;
   position: absolute;
-  width: 300px;
-  height: 200px;
+  width: 150px;
+  height: auto;
   z-index: 15;
-  top: 50%;
-  left: 50%;
-  margin: -100px 0 0 -150px;
   background: yellow;
+}
+.header span {
+  text-transform: uppercase;
 }
 .deadline {
   font-family: Courier New;
   cursor: pointer;
+  background: #FF4D4D;
+  border-radius: 12px;
+  padding: 3px;
 }
 .delete {
   font-family: Arial;
   text-decoration: none;
+  height: 18px;
+  width: 18px;
+  text-align: center;
+}
+.delete:hover {
+  background: rgba(255, 100, 100, 0.8);
+  border-radius: 100%;
 }
 .floatright {
   float: right;

@@ -13,11 +13,12 @@ function Item(data) {
   this.deadline_ = null;
   this.deadlineEl_ = document.createElement('span');
   this.deadlineEl_.classList.add('deadline');
-  this.deadlineEl_.onclick = function() {
+  this.deadlineEl_.onclick = function(e) {
     var box = this.deadlineEl_.getBoundingClientRect();
-    dialog.showTimePicker(box.left, box.bottom, function(val) {
+    dialog.show(box.left, box.bottom, TIMEPICKER.setPicker(function(val) {
       this.setDeadline_(val);
-    }.bind(this));
+      dialog.close();
+    }.bind(this)));
   }.bind(this);
   this.el_.appendChild(this.deadlineEl_);
   this.setDeadline_(infiniteDeadline());

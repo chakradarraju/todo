@@ -1,83 +1,51 @@
 
 function Dialog(el) {
   this.el_ = el;
-  this.el_.style.display = 'none';
-  this.initTimePicker_();
-  this.callback_;
+  this.content_ = null;
+  this.active_ = false;
+  this.init_();
 };
 
-Dialog.prototype.show = function() {
+Dialog.prototype.show = function(left, top, width, content) {
   this.el_.style.display = 'block';
-  this.timePicker_.style.display = 'block';
-};
-
-Dialog.prototype.showTimePicker = function(left, top, callback) {
-  this.show();
   this.el_.style.left = left + 'px';
   this.el_.style.top = top + 'px';
-  this.callback_ = callback;
+  this.el_.style.width = width + 'px';
+  this.setContent_(content);
+  setTimeout(function() {
+    this.active_ = true;
+  }.bind(this), 0);
 };
 
 Dialog.prototype.close = function() {
   this.el_.style.display = 'none';
-  this.timePicker_.style.display = 'none';
+  this.removeContent_();
+  this.active_ = false;
 };
 
-Dialog.prototype.initTimePicker_ = function() {
-  this.timePicker_ = document.createElement('div');
-  this.timePicker_.style.display = 'none';
-  this.el_.appendChild(this.timePicker_);
-  var addBtn = function(label, fn) {
-    var btn = document.createElement('input');
-    btn.type = 'button';
-    btn.value = label;
-    btn.classList.add('deadlinebtn');
-    btn.onclick = fn;
-    this.timePicker_.appendChild(btn);
-  }.bind(this);
-  var today = function() {
-    var d = new Date();
-    d.setHours(23, 59, 59);
-    return d;
-  };
-  var tomorrow = function() {
-    var d = new Date();
-    d.setHours(20, 0, 0, 0);
-    d.setDate(d.getDate() + 1);
-    return d;
-  };
-  var weekend = function() {
-    var d = new Date();
-    d.setHours(20, 0, 0, 0);
-    d.setDate(d.getDate() + 7 - d.getDay());
-    return d;
-  };
-  var monthend = function() {
-    var d = new Date();
-    d.setHours(20, 0, 0, 0);
-    d.setMonth(d.getMonth() + 1);
-    d.setDate(0);
-    return d;
-  };
-  var infinite = function() {
-    var d = new Date();
-    d.setYear(d.getFullYear() + 20);
-    return d;
-  };
-  var ret = function(value) {
-    return function() {
-      this.return_(value);
-    }.bind(this)
-  }.bind(this);
-  addBtn('By today', ret(today()));
-  addBtn('By tomorrow', ret(tomorrow()));
-  addBtn('By weekend', ret(weekend()));
-  addBtn('By month end', ret(monthend()));
-  addBtn('No deadline', ret(infinite()));
-  addBtn('Close', this.close.bind(this));
+Dialog.prototype.removeContent_ = function() {
+  if (this.content_) {
+    this.el_.removeChild(this.content_.getEl());
+    this.content_ = null;
+  }
 };
 
-Dialog.prototype.return_ = function(value) {
-  this.callback_(value);
-  this.close();
+Dialog.prototype.setContent_ = function(content) {
+  this.content_ = content;
+  this.el_.appendChild(content.getEl());
+};
+
+Dialog.prototype.init_ = function() {
+  document.onclick = function(e) {
+    if (!this.active_) return;
+    var found = false;
+    for (var i = 0; i < e.path.length; i++) {
+      if (e.path[i] == this.el_) {
+        found = true;
+      }
+    }
+    if (!found) {
+      this.close();
+    }
+  }.bind(this);
 };

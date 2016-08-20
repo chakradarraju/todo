@@ -41,7 +41,7 @@ input:focus {
   flex: 1;
   font-size: 14px;
 }
-input[type=button] {
+.timepickerbtn {
   font-size: 14px;
   width: 100%;
 }
@@ -87,4 +87,11 @@ input[type=button]:hover {
 }
 .floatright {
   float: right;
+}
+.someday {
+  display: flex;
+}
+.setbtn {
+  flex: 1;
+  font-size: 14px;
 }

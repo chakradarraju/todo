@@ -1,5 +1,6 @@
 POW16 = 65536;
 DATELEN = 4;
+TIMEPICKER = new TimePicker();
 
 function Item(data) {
   function infiniteDeadline() {
@@ -13,11 +14,12 @@ function Item(data) {
   this.deadline_ = null;
   this.deadlineEl_ = document.createElement('span');
   this.deadlineEl_.classList.add('deadline');
-  this.deadlineEl_.onclick = function() {
+  this.deadlineEl_.onclick = function(e) {
     var box = this.deadlineEl_.getBoundingClientRect();
-    dialog.showTimePicker(box.left, box.bottom, function(val) {
+    dialog.show(box.left, box.bottom, 150, TIMEPICKER.getTime(function(val) {
       this.setDeadline_(val);
-    }.bind(this));
+      dialog.close();
+    }.bind(this)));
   }.bind(this);
   this.el_.appendChild(this.deadlineEl_);
   this.setDeadline_(infiniteDeadline());
@@ -70,17 +72,19 @@ Item.prototype.updateLabel_ = function() {
 Item.prototype.getLabel_ = function(diff) {
   diff /= 1000;
   if (diff < 0) {
-    return 'EX';
+    return 'EX';  // Expired
   } else if (diff < 60 * 60) {
-    return Math.floor(diff / 60) + 'M';
+    return 'FM';  // Few minutes
   } else if (diff < 24 * 60 * 60) {
     return Math.floor(diff / 60 / 60) + 'H';
   } else if (diff < 30 * 24 * 60 * 60) {
     return Math.floor(diff / 24 / 60 / 60) + 'D';
+  } else if (diff < 365 * 24 * 60 * 60) {
+    return Math.floor(diff / 31 / 24 / 60 / 60) + 'M';
   } else if (diff < 10 * 365 * 24 * 60 * 60) {
     return Math.floor(diff / 365 / 24 / 60 / 60) + 'Y';
   } else {
-    return '--';
+    return '--';  // No deadline
   }
 };
 

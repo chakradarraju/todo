@@ -88,3 +88,9 @@ input[type=button]:hover {
 .floatright {
   float: right;
 }
+.someday {
+  display: flex;
+}
+.setbtn {
+  flex: 1;
+}

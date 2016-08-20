@@ -70,17 +70,19 @@ Item.prototype.updateLabel_ = function() {
 Item.prototype.getLabel_ = function(diff) {
   diff /= 1000;
   if (diff < 0) {
-    return 'EX';
+    return 'EX';  // Expired
   } else if (diff < 60 * 60) {
-    return Math.floor(diff / 60) + 'M';
+    return 'FM';  // Few minutes
   } else if (diff < 24 * 60 * 60) {
     return Math.floor(diff / 60 / 60) + 'H';
   } else if (diff < 30 * 24 * 60 * 60) {
     return Math.floor(diff / 24 / 60 / 60) + 'D';
+  } else if (diff < 365 * 24 * 60 * 60) {
+    return Math.floor(diff / 31 / 24 / 60 / 60) + 'M';
   } else if (diff < 10 * 365 * 24 * 60 * 60) {
     return Math.floor(diff / 365 / 24 / 60 / 60) + 'Y';
   } else {
-    return '--';
+    return '--';  // No deadline
   }
 };
 

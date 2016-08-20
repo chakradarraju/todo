@@ -8,7 +8,7 @@ TimePicker.prototype.getEl = function() {
   return this.el_;
 };
 
-TimePicker.prototype.setPicker = function(callback) {
+TimePicker.prototype.getTime = function(callback) {
   this.callback_ = callback;
   return this;
 };
@@ -61,7 +61,7 @@ TimePicker.prototype.addBtn_ = function(label, fn) {
   var btn = document.createElement('input');
   btn.type = 'button';
   btn.value = label;
-  btn.classList.add('deadlinebtn');
+  btn.classList.add('timepickerbtn');
   btn.onclick = fn;
   this.el_.appendChild(btn);
 };

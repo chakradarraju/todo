@@ -1,6 +1,4 @@
 
-TIMEPICKER = new TimePicker();
-
 function Dialog(el) {
   this.el_ = el;
   this.content_ = null;
@@ -8,10 +6,11 @@ function Dialog(el) {
   this.init_();
 };
 
-Dialog.prototype.show = function(left, top, content) {
+Dialog.prototype.show = function(left, top, width, content) {
   this.el_.style.display = 'block';
   this.el_.style.left = left + 'px';
   this.el_.style.top = top + 'px';
+  this.el_.style.width = width + 'px';
   this.setContent_(content);
   setTimeout(function() {
     this.active_ = true;

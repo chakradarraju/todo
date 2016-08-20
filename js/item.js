@@ -1,5 +1,6 @@
 POW16 = 65536;
 DATELEN = 4;
+TIMEPICKER = new TimePicker();
 
 function Item(data) {
   function infiniteDeadline() {
@@ -15,7 +16,7 @@ function Item(data) {
   this.deadlineEl_.classList.add('deadline');
   this.deadlineEl_.onclick = function(e) {
     var box = this.deadlineEl_.getBoundingClientRect();
-    dialog.show(box.left, box.bottom, TIMEPICKER.setPicker(function(val) {
+    dialog.show(box.left, box.bottom, 150, TIMEPICKER.getTime(function(val) {
       this.setDeadline_(val);
       dialog.close();
     }.bind(this)));

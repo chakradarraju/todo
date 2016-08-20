@@ -1,3 +1,4 @@
+PROMPTBOX = new PromptBox();
 
 function ToDos(el) {
   this.listsContainer_ = document.createElement('div');
@@ -28,9 +29,14 @@ ToDos.prototype.deleteList = function(name) {
 
 ToDos.prototype.getRenameFn_ = function(el) {
   return function() {
-    var newName = prompt('New name:');
-    if (newName) {
+    var left = document.body.clientWidth / 2 - 150;
+    dialog.show(left, 0, 300, PROMPTBOX.getValue('New name:', el.getName(), function(newName) {
+      var oldName = el.getName();
       newName = newName.toLowerCase();
+      if (oldName === newName) {
+        dialog.close();
+        return;
+      }
       if (/[;!]/.test(newName)) {
         alert('Name cannot contain ; or !');
         return;
@@ -39,13 +45,13 @@ ToDos.prototype.getRenameFn_ = function(el) {
         alert('Name already in use');
         return;
       }
-      var oldName = el.getName();
       this.lists_[newName] = this.lists_[oldName];
       this.lists_[newName].setName(newName);
-      delete this.lists_[name];
-      this.removeListFromStorage_(name);
+      delete this.lists_[oldName];
+      this.removeListFromStorage_(oldName);
       this.save();
-    }
+      dialog.close();
+    }.bind(this)));
   }.bind(this);
 };
 

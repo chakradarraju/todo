@@ -20,6 +20,7 @@ function Item(data) {
       this.setDeadline_(val);
       dialog.close();
     }.bind(this)));
+    GROW_DOWN_ANIMATION(dialog.getEl(), TIMEPICKER.getEl().clientHeight);
   }.bind(this);
   this.el_.appendChild(this.deadlineEl_);
   this.setDeadline_(infiniteDeadline());

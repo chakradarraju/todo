@@ -18,9 +18,11 @@ Dialog.prototype.show = function(left, top, width, content) {
 };
 
 Dialog.prototype.close = function() {
-  this.el_.style.display = 'none';
-  this.removeContent_();
-  this.active_ = false;
+  SHRINK_UP_ANIMATION(this.getEl(), this.content_.getEl().clientHeight).then(function() {
+    this.el_.style.display = 'none';
+    this.removeContent_();
+    this.active_ = false;
+  }.bind(this));
 };
 
 Dialog.prototype.getEl = function() {

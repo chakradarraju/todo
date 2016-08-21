@@ -75,11 +75,11 @@ ROLL_DOWN_ANIMATION = function(el) {
   return new Animator(el, ['margin-top'], [-20], [0], [withpx], 150);
 };
 
-GROW_DOWN_ANIMATION = function(el) {
+GROW_DOWN_ANIMATION = function(el, height) {
   el.style.height = '0px';
-  return new Animator(el, ['height'], [0], [24], [withpx], 150);
+  return new Animator(el, ['height'], [0], [height], [withpx], 150);
 };
 
-SHRINK_UP_ANIMATION = function(el) {
-  return new Animator(el, ['height'], [24], [0], [withpx], 150);
+SHRINK_UP_ANIMATION = function(el, height) {
+  return new Animator(el, ['height'], [height], [0], [withpx], 150);
 };

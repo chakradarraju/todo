@@ -23,6 +23,10 @@ Dialog.prototype.close = function() {
   this.active_ = false;
 };
 
+Dialog.prototype.getEl = function() {
+  return this.el_;
+};
+
 Dialog.prototype.removeContent_ = function() {
   if (this.content_) {
     this.el_.removeChild(this.content_.getEl());

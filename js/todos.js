@@ -10,6 +10,8 @@ function ToDos(el) {
   this.addBtn_.onclick = function() {
     var list = this.lists_[''] = this.setupList_(new List(), '', '');
     this.getRenameFn_(list)();
+    FADE_UP_ANIMATION(list.getEl());
+    ROLL_DOWN_ANIMATION(dialog.getEl());
   }.bind(this);
   el.appendChild(this.addBtn_);
 
@@ -77,8 +79,10 @@ ToDos.prototype.setupList_ = function(list, name, data) {
   list.listenNameClick(this.getRenameFn_(list));
   list.listenChange(this.save.bind(this));
   list.getDeleteBtn().onclick = function() {
-    this.deleteList(list.getName());
-    this.save();
+    FADE_DOWN_ANIMATION(list.getEl()).then(function() {
+      this.deleteList(list.getName());
+      this.save();
+    }.bind(this));
   }.bind(this);
   return list;
 };

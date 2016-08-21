@@ -63,6 +63,7 @@ input[type=button]:hover {
   height: auto;
   z-index: 15;
   background: yellow;
+  overflow: hidden;
 }
 .header span {
   text-transform: uppercase;

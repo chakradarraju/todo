@@ -79,7 +79,7 @@ List.prototype.init_ = function(el) {
   this.addBtn_.classList.add('addbtn');
   this.addBtn_.onclick = function() {
     var item = this.add();
-    GROW_DOWN_ANIMATION(item.getEl());
+    GROW_DOWN_ANIMATION(item.getEl(), 24);
   }.bind(this);
 };
 
@@ -97,7 +97,7 @@ List.prototype.setupItem_ = function(item) {
   item.listenChange(this.changeCallback_);
   var remove = this.createDeleteBtn_();
   remove.onclick = function() {
-    SHRINK_UP_ANIMATION(item.getEl()).then(function() {
+    SHRINK_UP_ANIMATION(item.getEl(), 24).then(function() {
       this.remove(item);
       this.changeCallback_();
     }.bind(this));

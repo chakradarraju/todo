@@ -1,15 +1,18 @@
 
-INTERVAL = 33;
-
 function Animator(el, props, start, end, fns, time) {
+  if (start.length !== end.length) {
+    console.error("start and end should be of same length");
+    return this;
+  }
   this.el_ = el;
   this.props_ = props;
-  this.vals_ = [];
-  this.diffs_ = [];
   this.fns_ = fns;
+  this.start_ = start;
   this.end_ = end;
+  this.duration_ = time;
+  this.startTime_ = null;
   this.callback_ = function() {}
-  this.init_(start, end, time);
+  window.requestAnimationFrame(this.updateProps_.bind(this));
   this.resolved_ = false;
 }
 
@@ -23,32 +26,19 @@ Animator.prototype.then = function(fn) {
   }(this.callback_);
 };
 
-Animator.prototype.init_ = function(start, end, time) {
-  var frames = time / INTERVAL;
-  if (start.length !== end.length) {
-    console.error("start and end should be of same length");
-    return this;
+Animator.prototype.updateProps_ = function(timestamp) {
+  if (!this.startTime_) this.startTime_ = timestamp;
+  for (var i = 0; i < this.start_.length; i++) {
+    this.setValue_(this.props_[i], this.fns_[i]((timestamp - this.startTime_) / this.duration_ * (this.end_[i] - this.start_[i]) + this.start_[i]));
   }
-  for (var i = 0; i < start.length; i++) {
-    this.vals_[i] = this.setValue_(this.props_[i], start[i]);
-    this.diffs_.push((end[i] - start[i]) / frames);
-  }
-  this.interval_ = setInterval(this.updateProps_.bind(this), INTERVAL);
-  setTimeout(this.finalize_.bind(this), time);
-};
-
-Animator.prototype.updateProps_ = function() {
-  for (var i = 0; i < this.vals_.length; i++) {
-    this.vals_[i] = this.vals_[i] + this.diffs_[i];
-    this.setValue_(this.props_[i], this.fns_[i](this.vals_[i]));
-  }
+  if (this.duration_ < timestamp - this.startTime_) this.finalize_();
+  else window.requestAnimationFrame(this.updateProps_.bind(this));
 };
 
 Animator.prototype.finalize_ = function() {
-  for (var i = 0; i < this.vals_.length; i++) {
-    this.vals_[i] = this.setValue_(this.props_[i], this.fns_[i](this.end_[i]));
+  for (var i = 0; i < this.start_.length; i++) {
+    this.setValue_(this.props_[i], this.fns_[i](this.end_[i]));
   }
-  clearInterval(this.interval_);
   this.resolved_ = true;
   this.callback_();
 };

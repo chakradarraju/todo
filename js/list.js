@@ -2,7 +2,7 @@
 function List() {
   this.el_ = document.createElement('div');
   this.items_ = [];
-  this.init_(this.el_);
+  this.init_();
   this.changeCallback_ = null;
 }
 
@@ -76,7 +76,8 @@ List.prototype.getDeleteBtn = function() {
   return this.deleteEl_;
 };
 
-List.prototype.init_ = function(el) {
+List.prototype.init_ = function() {
+  var el = this.getEl();
   el.appendChild(this.headerEl_ = document.createElement('div'));
   el.appendChild(this.itemsEl_ = document.createElement('div'));
   el.appendChild(this.addBtn_ = document.createElement('div'));

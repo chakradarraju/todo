@@ -7,11 +7,12 @@ function Dialog(el) {
 };
 
 Dialog.prototype.show = function(left, top, width, content) {
-  GROW_DOWN_ANIMATION(this.getEl(), content.getHeight());
-  this.el_.style.display = 'block';
-  this.el_.style.left = left + 'px';
-  this.el_.style.top = top + 'px';
-  this.el_.style.width = width + 'px';
+  var el = this.getEl();
+  GROW_DOWN_ANIMATION(el, content.getHeight());
+  el.style.display = 'block';
+  el.style.left = left + 'px';
+  el.style.top = top + 'px';
+  el.style.width = width + 'px';
   this.setContent_(content);
   setTimeout(function() {
     this.active_ = true;
@@ -20,7 +21,7 @@ Dialog.prototype.show = function(left, top, width, content) {
 
 Dialog.prototype.close = function() {
   SHRINK_UP_ANIMATION(this.getEl(), this.content_.getHeight()).then(function() {
-    this.el_.style.display = 'none';
+    this.getEl().style.display = 'none';
     this.removeContent_();
     this.active_ = false;
   }.bind(this));
@@ -32,27 +33,23 @@ Dialog.prototype.getEl = function() {
 
 Dialog.prototype.removeContent_ = function() {
   if (this.content_) {
-    this.el_.removeChild(this.content_.getEl());
+    this.getEl().removeChild(this.content_.getEl());
     this.content_ = null;
   }
 };
 
 Dialog.prototype.setContent_ = function(content) {
   this.content_ = content;
-  this.el_.appendChild(content.getEl());
+  this.getEl().appendChild(content.getEl());
 };
 
 Dialog.prototype.init_ = function() {
   document.onclick = function(e) {
     if (!this.active_) return;
     var found = false;
-    for (var i = 0; i < e.path.length; i++) {
-      if (e.path[i] == this.el_) {
+    for (var i = 0; i < e.path.length; i++)
+      if (e.path[i] == this.getEl())
         found = true;
-      }
-    }
-    if (!found) {
-      this.close();
-    }
+    if (!found) this.close();
   }.bind(this);
 };

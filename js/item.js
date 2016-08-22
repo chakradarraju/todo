@@ -9,8 +9,8 @@ function Item(data) {
     d.setYear(d.getFullYear() + 20);
     return d;
   }
-  this.el_ = document.createElement('div');
-  this.el_.classList.add('item');
+  var el = this.el_ = document.createElement('div');
+  el.classList.add('item');
   this.save_ = null;
   this.deadline_ = null;
   this.deadlineEl_ = document.createElement('span');
@@ -22,12 +22,12 @@ function Item(data) {
       dialog.close();
     }.bind(this)));
   }.bind(this);
-  this.el_.appendChild(this.deadlineEl_);
+  el.appendChild(this.deadlineEl_);
   this.setDeadline_(infiniteDeadline());
 
   this.input_ = document.createElement('input');
   this.input_.classList.add('input');
-  this.el_.appendChild(this.input_);
+  el.appendChild(this.input_);
   if (data) {
     this.loadValue(data);
   }

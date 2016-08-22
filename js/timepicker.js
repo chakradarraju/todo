@@ -67,7 +67,7 @@ TimePicker.prototype.addBtn_ = function(label, fn) {
   btn.value = label;
   btn.classList.add('timepickerbtn');
   btn.onclick = fn;
-  this.el_.appendChild(btn);
+  this.getEl().appendChild(btn);
 };
 
 TimePicker.prototype.addBySomeday_ = function() {
@@ -100,6 +100,6 @@ TimePicker.prototype.addBySomeday_ = function() {
     this.callback_(ret);
   }.bind(this);
   item.appendChild(setBtn);
-  this.el_.appendChild(item);
+  this.getEl().appendChild(item);
 };
 

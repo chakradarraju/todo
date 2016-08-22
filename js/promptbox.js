@@ -9,6 +9,10 @@ PromptBox.prototype.getEl = function() {
   return this.el_;
 };
 
+PromptBox.prototype.getHeight = function() {
+  return 24;
+};
+
 PromptBox.prototype.getValue = function(label, value, fn) {
   this.label_.innerHTML = label;
   this.callback_ = fn;

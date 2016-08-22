@@ -8,6 +8,10 @@ TimePicker.prototype.getEl = function() {
   return this.el_;
 };
 
+TimePicker.prototype.getHeight = function() {
+  return 138;
+};
+
 TimePicker.prototype.getTime = function(callback) {
   this.callback_ = callback;
   return this;

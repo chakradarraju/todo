@@ -1,6 +1,7 @@
 POW16 = 65536;
 DATELEN = 4;
 TIMEPICKER = new TimePicker();
+ITEM_HEIGHT = 24;
 
 function Item(data) {
   function infiniteDeadline() {
@@ -20,7 +21,6 @@ function Item(data) {
       this.setDeadline_(val);
       dialog.close();
     }.bind(this)));
-    GROW_DOWN_ANIMATION(dialog.getEl(), TIMEPICKER.getEl().clientHeight);
   }.bind(this);
   this.el_.appendChild(this.deadlineEl_);
   this.setDeadline_(infiniteDeadline());
@@ -43,6 +43,14 @@ Item.prototype.loadValue = function(value) {
     this.input_.value = value.substr(DATELEN);
     this.setDeadline_(this.deserialize_(value.substr(0, DATELEN)));
   }
+};
+
+Item.prototype.hide = function() {
+  return SHRINK_UP_ANIMATION(this.getEl(), ITEM_HEIGHT);
+};
+
+Item.prototype.show = function() {
+  return GROW_DOWN_ANIMATION(this.el_, ITEM_HEIGHT);
 };
 
 Item.prototype.getEl = function() {

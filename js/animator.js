@@ -24,6 +24,7 @@ Animator.prototype.then = function(fn) {
       fn();
     };
   }(this.callback_);
+  return this;
 };
 
 Animator.prototype.updateProps_ = function(timestamp) {

@@ -50,7 +50,7 @@ Item.prototype.hide = function() {
 };
 
 Item.prototype.show = function() {
-  return GROW_DOWN_ANIMATION(this.el_, ITEM_HEIGHT);
+  return GROW_DOWN_ANIMATION(this.getEl(), ITEM_HEIGHT);
 };
 
 Item.prototype.getEl = function() {
